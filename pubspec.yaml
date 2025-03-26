@@ -1,0 +1,59 @@
+name: logistic_management_system
+description: A new Flutter project.
+
+publish_to: 'none' # Keep this for private projects or remove if public.
+
+version: 1.0.1+2
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  file_picker: ^8.1.2
+  intl: ^0.20.1
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  image_picker: ^1.1.2
+  lottie: ^3.2.0
+  fl_chart: ^0.45.0
+  excel: ^4.0.6
+  http: ^1.2.2
+  flutter_pdfview: ^1.4.0
+  url_launcher: ^6.1.7
+  url_launcher_web:
+  path_provider: ^2.0.12
+  font_awesome_flutter: ^10.8.0
+  animate_do: ^4.1.1
+  pdf_viewer_plugin: ^2.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/logo_1.png
+    - assets/images/additional_order_icon.png
+    - assets/images/new_order_icon.png
+    - assets/images/profile_placeholder.png
+    - assets/images/profile.png
+    - assets/images/sales_icon.png
+    - assets/images/expenses_icon.png
+    - assets/images/inventory_icon.png
+    - assets/images/test_print.png
+    - assets/images/rename.png
+    - assets/images/printing.png
+    - assets/images/tailoring.png
+    - assets/images/quality_check.png
+    - assets/images/delivery.png
+    - assets/images/order_icon.png
+    - assets/images/ZUS Logo.png
+    - assets/images/apparel_bg.jpg
+    - assets/animations/loading_gear.json
