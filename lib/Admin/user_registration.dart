@@ -45,8 +45,8 @@ class UserRegistrationState extends State<UserRegistration> {
 
   Future<void> _registerUser() async {
     try {
-      final url =
-          Uri.parse('http://localhost/Apparell_backend/register_user.php');
+      final url = Uri.parse(
+          'http://localhost/apparell/Apparell_backend/register_user.php');
 
       // Function to parse dates safely
       String? parseDate(String date) {

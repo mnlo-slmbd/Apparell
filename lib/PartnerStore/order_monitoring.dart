@@ -50,7 +50,7 @@ class _ProductionMonitoringState extends State<StoreMonitoring> {
   // Fetch orders from the backend
   Future<void> _fetchOrders() async {
     final String apiUrl =
-        "http://localhost/Apparell_backend/get_production_stages_zus.php?store=${Uri.encodeComponent(widget.storeName)}";
+        "http://localhost/apparell/Apparell_backend/get_production_stages_zus.php?store=${Uri.encodeComponent(widget.storeName)}";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -89,7 +89,7 @@ class _ProductionMonitoringState extends State<StoreMonitoring> {
 
   Future<void> updateMonitoringStatus(String orderId, String status) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_production_status.php";
+        "http://localhost/apparell/Apparell_backend/update_production_status.php";
 
     try {
       final response = await http.post(

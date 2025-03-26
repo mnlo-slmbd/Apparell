@@ -37,7 +37,7 @@ class LoginPageState extends State<LoginPage> {
 
     try {
       final response = await http.post(
-        Uri.parse('http://localhost/Apparell_backend/login.php'),
+        Uri.parse('http://localhost/apparell/Apparell_backend/login.php'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           'email': email,

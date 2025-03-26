@@ -30,7 +30,8 @@ class QuotationPage extends StatefulWidget {
   final bool isNewOrderChecked; // Add this
   final bool isAdditionalOrderChecked; // Add this
 
-  const QuotationPage({super.key, 
+  const QuotationPage({
+    super.key,
     required this.orderDetails,
     required this.totalSale,
     required this.customerName,
@@ -64,7 +65,8 @@ class _QuotationPageState extends State<QuotationPage> {
 
   // Function to save data to the database
   Future<void> saveOrderToDatabase() async {
-    const String apiUrl = 'http://localhost/Apparell_backend/save_order.php';
+    const String apiUrl =
+        'http://localhost/apparell/Apparell_backend/save_order.php';
 
     // Parse deliveryDate and reformat it
     final parsedDeliveryDate =
@@ -126,136 +128,148 @@ class _QuotationPageState extends State<QuotationPage> {
       );
     }
   }
-void _generatePdfAndPrint() async {
-  final pdf = pw.Document();
 
-  // Load the logo image
-  final logo = pw.MemoryImage(
-    (await rootBundle.load('assets/images/logo_1.png')).buffer.asUint8List(),
-  );
+  void _generatePdfAndPrint() async {
+    final pdf = pw.Document();
 
-  pdf.addPage(
-    pw.Page(
-      build: (pw.Context context) {
-        return pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            // Customer Receipt Heading with Logo on the right
-            pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween, // Space out the text and logo
-              children: [
-                pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text('CUSTOMER RECEIPT',
-                        style: pw.TextStyle(fontSize: 18, fontWeight: pw.FontWeight.bold)),
-                    pw.Text('CBD II Triangulo, Naga City, Camarines Sur'),
-                    pw.Text('zuscustoms2021@gmail.com'),
-                    pw.Text('0998 226 1132 | 0945 533 1129'),
-                  ],
-                ),
-                pw.Image(logo, width: 120, height: 120), // Make logo bigger
-              ],
-            ),
-            pw.SizedBox(height: 20),
-            // Customer Information
-            pw.Text('Customer Name: ${widget.customerName}'),
-            pw.Text('Contact: ${widget.contactNumber}'),
-            pw.Text('Address: ${widget.address}'),
-            pw.Text('Email: ${widget.email}'),
-            pw.Text('Order Type: ${widget.orderType}'),
-            pw.Text(
-              'Classification: ${widget.isNewOrderChecked ? "New Order" : widget.isAdditionalOrderChecked ? "Additional Order" : "None"}',
-            ),
-            pw.Text('Delivery Date: ${widget.deliveryDate}'),
-            pw.Text('MOP: ${widget.mop}'),
-            pw.Text('Downpayment: ${formatCurrency(widget.downpayment)}'),
-            pw.Text('Balance: ${formatCurrency(widget.balance)}'),
-            pw.SizedBox(height: 20),
+    // Load the logo image
+    final logo = pw.MemoryImage(
+      (await rootBundle.load('assets/images/logo_1.png')).buffer.asUint8List(),
+    );
 
-            // Store Details with Logo next to it (aligned to the right)
-            // Store Details without Logo
-            // For ORDER DETAILS, move it to the upper right corner
-            pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.end, // Align to the right
-              children: [
-                pw.Text(
-                  'ORDER DETAILS',
-                  style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold, color: PdfColors.red),
-                ),
-              ],
-            ),
-            pw.SizedBox(height: 20),
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) {
+          return pw.Column(
+            crossAxisAlignment: pw.CrossAxisAlignment.start,
+            children: [
+              // Customer Receipt Heading with Logo on the right
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment
+                    .spaceBetween, // Space out the text and logo
+                children: [
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Text('CUSTOMER RECEIPT',
+                          style: pw.TextStyle(
+                              fontSize: 18, fontWeight: pw.FontWeight.bold)),
+                      pw.Text('CBD II Triangulo, Naga City, Camarines Sur'),
+                      pw.Text('zuscustoms2021@gmail.com'),
+                      pw.Text('0998 226 1132 | 0945 533 1129'),
+                    ],
+                  ),
+                  pw.Image(logo, width: 120, height: 120), // Make logo bigger
+                ],
+              ),
+              pw.SizedBox(height: 20),
+              // Customer Information
+              pw.Text('Customer Name: ${widget.customerName}'),
+              pw.Text('Contact: ${widget.contactNumber}'),
+              pw.Text('Address: ${widget.address}'),
+              pw.Text('Email: ${widget.email}'),
+              pw.Text('Order Type: ${widget.orderType}'),
+              pw.Text(
+                'Classification: ${widget.isNewOrderChecked ? "New Order" : widget.isAdditionalOrderChecked ? "Additional Order" : "None"}',
+              ),
+              pw.Text('Delivery Date: ${widget.deliveryDate}'),
+              pw.Text('MOP: ${widget.mop}'),
+              pw.Text('Downpayment: ${formatCurrency(widget.downpayment)}'),
+              pw.Text('Balance: ${formatCurrency(widget.balance)}'),
+              pw.SizedBox(height: 20),
 
-            // Order Details
-            pw.Text('',
-                style: const pw.TextStyle(fontSize: 16)),
-            pw.Table.fromTextArray(
-              headers: ['Item', 'Description', 'Qty', 'Unit Price', 'Total'],
-              data: widget.orderDetails
-                  .map((order) => [
-                        order['description'],
-                        order['description'],
-                        order['qty'].toString(),
-                        formatCurrency(order['unitPrice']),
-                        formatCurrency(order['total']),
-                      ])
-                  .toList(),
-            ),
-            pw.SizedBox(height: 20),
+              // Store Details with Logo next to it (aligned to the right)
+              // Store Details without Logo
+              // For ORDER DETAILS, move it to the upper right corner
+              pw.Row(
+                mainAxisAlignment:
+                    pw.MainAxisAlignment.end, // Align to the right
+                children: [
+                  pw.Text(
+                    'ORDER DETAILS',
+                    style: pw.TextStyle(
+                        fontSize: 16,
+                        fontWeight: pw.FontWeight.bold,
+                        color: PdfColors.red),
+                  ),
+                ],
+              ),
+              pw.SizedBox(height: 20),
 
-            // Total Sale
-            pw.Text('TOTAL: ${formatCurrency(widget.totalSale)}'),
-          ],
-        );
-      },
-    ),
-  );
+              // Order Details
+              pw.Text('', style: const pw.TextStyle(fontSize: 16)),
+              pw.Table.fromTextArray(
+                headers: ['Item', 'Description', 'Qty', 'Unit Price', 'Total'],
+                data: widget.orderDetails
+                    .map((order) => [
+                          order['description'],
+                          order['description'],
+                          order['qty'].toString(),
+                          formatCurrency(order['unitPrice']),
+                          formatCurrency(order['total']),
+                        ])
+                    .toList(),
+              ),
+              pw.SizedBox(height: 20),
 
-  await Printing.layoutPdf(
-    onLayout: (PdfPageFormat format) async => pdf.save(),
-  );
-}
+              // Total Sale
+              pw.Text('TOTAL: ${formatCurrency(widget.totalSale)}'),
+            ],
+          );
+        },
+      ),
+    );
+
+    await Printing.layoutPdf(
+      onLayout: (PdfPageFormat format) async => pdf.save(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 185, 34, 23),
-          elevation: 0, // Removes the shadow
-          automaticallyImplyLeading: false, // Hides the default back button
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align items to space out
-            children: [
-              IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/sample_purchase'); // Navigate to the order page
-                },
-              ),
-              Row(
-                children: [
-                  const Text(
-                    'Quotation Details',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 185, 34, 23),
+        elevation: 0, // Removes the shadow
+        automaticallyImplyLeading: false, // Hides the default back button
+        title: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween, // Align items to space out
+          children: [
+            IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Navigator.pushNamed(
+                    context, '/sample_purchase'); // Navigate to the order page
+              },
+            ),
+            Row(
+              children: [
+                const Text(
+                  'Quotation Details',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(width: 10), // Add spacing between the text and the home button
-                  IconButton(
-                    icon: const Icon(Icons.home, color: Colors.white), // Home icon
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/order_page'); // Redirect to /order_page
-                    },
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ),
+                const SizedBox(
+                    width:
+                        10), // Add spacing between the text and the home button
+                IconButton(
+                  icon:
+                      const Icon(Icons.home, color: Colors.white), // Home icon
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, '/order_page'); // Redirect to /order_page
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
-        body: Container(
+      ),
+      body: Container(
         color: Colors.white,
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),

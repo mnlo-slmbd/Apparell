@@ -33,10 +33,8 @@ import 'package:logistic_management_system/WarehouseDashboard/printing.dart';
 import 'package:logistic_management_system/WarehouseDashboard/printing_view.dart';
 import 'package:logistic_management_system/WarehouseDashboard/production_monitoring.dart';
 import 'package:logistic_management_system/WarehouseDashboard/quality_check.dart';
-import 'package:logistic_management_system/WarehouseDashboard/tailoring_view.dart';
 import 'package:logistic_management_system/WarehouseDashboard/test_print.dart';
 import 'package:logistic_management_system/WarehouseDashboard/tailoring.dart';
-import 'package:logistic_management_system/WarehouseDashboard/test_print_view.dart';
 import 'package:logistic_management_system/WarehouseDashboard/warehouse_dashboard.dart';
 import 'package:logistic_management_system/WarehouseDashboard/rename.dart';
 
@@ -82,7 +80,9 @@ class MyApp extends StatelessWidget {
         '/store_reports': (context) => const StoreReports(
               storeName: '',
             ),
-        '/store_expenses': (context) => const StoreExpenses(storeName: '',),
+        '/store_expenses': (context) => const StoreExpenses(
+              storeName: '',
+            ),
 
         // Warehouse Dashboard
         '/delivery': (context) => const Delivery(),
@@ -92,11 +92,9 @@ class MyApp extends StatelessWidget {
         '/quality_check': (context) => const QualityCheck(),
         '/tailoring': (context) => const Tailoring(),
         '/test_print': (context) => const TestPrint(),
-        '/test_print_view': (context) => const TestPrintView(),
         '/warehouse_dashboard': (context) => const WarehouseDashboard(),
         '/rename': (context) => const WarehouseRename(),
         '/printing_view': (context) => const PrintingView(),
-        '/tailoring_view': (context) => const TailoringView(),
       },
 
       // 🔥 Handle dynamic routes with arguments (like storeName)

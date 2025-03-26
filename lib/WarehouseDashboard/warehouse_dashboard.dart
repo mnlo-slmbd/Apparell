@@ -6,7 +6,6 @@ import 'package:logistic_management_system/WarehouseDashboard/printing.dart';
 import 'package:logistic_management_system/WarehouseDashboard/production_monitoring.dart';
 import 'package:logistic_management_system/WarehouseDashboard/quality_check.dart';
 import 'package:logistic_management_system/WarehouseDashboard/tailoring.dart';
-import 'package:logistic_management_system/WarehouseDashboard/warehouse_monitoring.dart';
 import 'package:logistic_management_system/WarehouseDashboard/inventory.dart';
 import '../PartnerStore/login_page.dart';
 import 'test_print.dart';

@@ -70,7 +70,8 @@ class _ExpensesReportBodyState extends State<ExpensesReportBody> {
   DateTime _selectedDate = DateTime.now();
   List<Map<String, dynamic>> _expenses = [];
   final NumberFormat currencyFormat = NumberFormat('#,##0.00');
-  final String apiUrl = 'http://localhost/Apparell_backend/expense_store.php';
+  final String apiUrl =
+      'http://localhost/apparell/Apparell_backend/expense_store.php';
 
   @override
   void initState() {

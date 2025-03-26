@@ -25,7 +25,7 @@ class _AdditionalOrderState extends State<AdditionalOrder> {
 
   Future<void> fetchOrders() async {
     const String apiUrl =
-        'http://localhost/Apparell_backend/fetch_orders_additional.php';
+        'http://localhost/apparell/Apparell_backend/fetch_orders_additional.php';
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -114,7 +114,8 @@ class _AdditionalOrderState extends State<AdditionalOrder> {
                   // Search bar
                   Card(
                     elevation: 4,
-                    shadowColor: const Color.fromARGB(255, 255, 255, 255).withOpacity(0.4),
+                    shadowColor: const Color.fromARGB(255, 255, 255, 255)
+                        .withOpacity(0.4),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),

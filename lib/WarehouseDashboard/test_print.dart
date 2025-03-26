@@ -47,7 +47,7 @@ class _TestPrintState extends State<TestPrint> {
   // Fetch orders from the database
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_testprint_orders.php";
+        "http://localhost/apparell/Apparell_backend/get_testprint_orders.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -84,7 +84,7 @@ class _TestPrintState extends State<TestPrint> {
     }
 
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_testprint_status.php";
+        "http://localhost/apparell/Apparell_backend/update_testprint_status.php";
 
     try {
       final response = await http.post(

@@ -37,7 +37,7 @@ class _FinishedProductPageState extends State<FinishedProductPage> {
 
   Future<void> fetchData() async {
     final url = Uri.parse(
-        'http://localhost/Apparell_backend/fetch_finished_products.php');
+        'http://localhost/apparell/Apparell_backend/fetch_finished_products.php');
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {

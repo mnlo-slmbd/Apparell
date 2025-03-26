@@ -35,7 +35,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
   }
 
   Future<void> fetchOrders() async {
-    const String apiUrl = "http://localhost/Apparell_backend/get_order.php";
+    const String apiUrl =
+        "http://localhost/apparell/Apparell_backend/get_order.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -80,7 +81,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
   }
 
   Future<void> assignTask(String orderId, String assignee, int index) async {
-    const String apiUrl = "http://localhost/Apparell_backend/assign_order.php";
+    const String apiUrl =
+        "http://localhost/apparell/Apparell_backend/assign_order.php";
     setState(() => isLoading = true);
 
     try {
@@ -123,7 +125,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
   }
 
   Future<void> deleteOrder(String orderId, int index) async {
-    const String apiUrl = "http://localhost/Apparell_backend/delete_order.php";
+    const String apiUrl =
+        "http://localhost/apparell/Apparell_backend/delete_order.php";
 
     setState(() => isLoading = true);
 
@@ -160,8 +163,9 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
       setState(() => isLoading = false);
     }
   }
-    //Filter Orders
-    void filterOrders(String query) {
+
+  //Filter Orders
+  void filterOrders(String query) {
     setState(() {
       filteredOrders = orders
           .where((order) =>
@@ -175,34 +179,35 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 185, 34, 23),
-          elevation: 0, // No shadow for a clean look
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pushNamed(context, '/admin-dashboard'); // Navigate back
-            },
-          ),
-          title: Align(
-            alignment: Alignment.centerRight, // Moves the title to the right
-            child: Text(
-              'Task Assign',
-              style: GoogleFonts.poppins( //
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 185, 34, 23),
+        elevation: 0, // No shadow for a clean look
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushNamed(context, '/admin-dashboard'); // Navigate back
+          },
+        ),
+        title: Align(
+          alignment: Alignment.centerRight, // Moves the title to the right
+          child: Text(
+            'Task Assign',
+            style: GoogleFonts.poppins(
+              //
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: isLoading
             ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
-           Align(
+                  Align(
                     alignment: Alignment.topLeft,
                     child: SizedBox(
                       width: 280, // Slightly wider for better usability
@@ -218,15 +223,20 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           ],
                         ),
                         child: TextField(
-                          onChanged: filterOrders, // Calls function when text changes
+                          onChanged:
+                              filterOrders, // Calls function when text changes
                           decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search, color: Colors.grey, size: 22), // Bigger icon
+                            prefixIcon: const Icon(Icons.search,
+                                color: Colors.grey, size: 22), // Bigger icon
                             hintText: 'Search for an order...',
                             filled: true,
                             fillColor: Colors.white,
                             border: InputBorder.none, // No border
-                            contentPadding: const EdgeInsets.symmetric(vertical: 14.0, horizontal: 16.0),
-                            hintStyle: GoogleFonts.poppins(color: Colors.grey, fontSize: 15), // Softer hint text
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 14.0, horizontal: 16.0),
+                            hintStyle: GoogleFonts.poppins(
+                                color: Colors.grey,
+                                fontSize: 15), // Softer hint text
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
                               borderSide: BorderSide.none, // Remove border
@@ -258,7 +268,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                       color: const Color.fromARGB(255, 156, 207, 241),
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -266,7 +277,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 1,
                           child: Text(
                             'Order ID',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -274,7 +286,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 2,
                           child: Text(
                             'Team Name',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -282,7 +295,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 2,
                           child: Text(
                             'Delivery Date',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -290,7 +304,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 2,
                           child: Text(
                             'Branch',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -298,7 +313,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 1,
                           child: Text(
                             'Category',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -306,7 +322,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 2,
                           child: Text(
                             'Assign To',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -314,7 +331,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 2,
                           child: Text(
                             'Details',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -322,7 +340,8 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
                           flex: 1,
                           child: Text(
                             'Actions',
-                            style: GoogleFonts.poppins(fontWeight: FontWeight.bold, fontSize: 14),
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.bold, fontSize: 14),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -360,7 +379,7 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
 
   void fetchOrderDetailsAndNavigate(String orderId) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_order_details.php";
+        "http://localhost/apparell/Apparell_backend/get_order_details.php";
 
     try {
       final response = await http.get(Uri.parse('$apiUrl?order_id=$orderId'));
@@ -391,6 +410,7 @@ class _TaskAssignPageState extends State<TaskAssignPage> {
     }
   }
 }
+
 //Order Row Start
 class OrderRow extends StatefulWidget {
   final Map<String, dynamic> order;
@@ -493,13 +513,15 @@ class _OrderRowState extends State<OrderRow> {
                   onExit: (_) => setState(() => isAssignButtonHovered = false),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          isAssignButtonHovered ? Colors.blue[700] : Colors.white,
+                      backgroundColor: isAssignButtonHovered
+                          ? Colors.blue[700]
+                          : Colors.white,
                       elevation: isAssignButtonHovered ? 4 : 2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12, vertical: 8),
                       side: const BorderSide(color: Colors.grey, width: 1),
                       fixedSize: const Size(96, 40), // Fixed button size
                     ),
@@ -510,7 +532,8 @@ class _OrderRowState extends State<OrderRow> {
                           title: const Text("Select Assignee"),
                           children: [
                             SimpleDialogOption(
-                              onPressed: () => Navigator.pop(context, 'Sherwin'),
+                              onPressed: () =>
+                                  Navigator.pop(context, 'Sherwin'),
                               child: const Center(child: Text('Sherwin')),
                             ),
                             SimpleDialogOption(
@@ -518,7 +541,8 @@ class _OrderRowState extends State<OrderRow> {
                               child: const Center(child: Text('Jron')),
                             ),
                             SimpleDialogOption(
-                              onPressed: () => Navigator.pop(context, 'Skip'), // Now just "Skip"
+                              onPressed: () => Navigator.pop(
+                                  context, 'Skip'), // Now just "Skip"
                               child: const Center(child: Text('Skip')),
                             ),
                           ],
@@ -526,17 +550,21 @@ class _OrderRowState extends State<OrderRow> {
                       );
                       if (selected != null) {
                         setState(() {
-                          widget.order['selectedAssignee'] = selected; // Update order list
+                          widget.order['selectedAssignee'] =
+                              selected; // Update order list
                           selectedAssignee = selected; // Update button label
                         });
                         widget.onAssign(selected);
                       }
                     },
                     child: Text(
-                      selectedAssignee ?? widget.order['selectedAssignee'] ?? "Select",
+                      selectedAssignee ??
+                          widget.order['selectedAssignee'] ??
+                          "Select",
                       style: GoogleFonts.poppins(
                         fontSize: isSmallScreen ? 12 : 14,
-                        color: isAssignButtonHovered ? Colors.white : Colors.black,
+                        color:
+                            isAssignButtonHovered ? Colors.white : Colors.black,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -605,7 +633,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
     try {
       final response = await http.get(
         Uri.parse(
-            'http://localhost/Apparell_backend/fetch_attachments.php?order_id=$orderId'),
+            'http://localhost/apparell/Apparell_backend/fetch_attachments.php?order_id=$orderId'),
       );
 
       if (response.statusCode == 200) {
@@ -701,7 +729,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       try {
         var request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://localhost/Apparell_backend/upload_attachment.php'),
+          Uri.parse(
+              'http://localhost/apparell/Apparell_backend/upload_attachment.php'),
         );
 
         request.fields['order_id'] = orderId; // Set order_id
@@ -765,7 +794,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
         backgroundColor: const Color.fromARGB(255, 185, 34, 23),
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white), // Back Arrow in White
+          icon: const Icon(Icons.arrow_back,
+              color: Colors.white), // Back Arrow in White
           onPressed: () {
             Navigator.pop(context);
           },
@@ -829,7 +859,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                     ...items.map((item) {
                       return TableRow(
                         children: [
-                          buildTableCell(item['description'] ?? 'N/A', bold: true),
+                          buildTableCell(item['description'] ?? 'N/A',
+                              bold: true),
                           buildTableCell(item['description'] ?? 'N/A'),
                           buildTableCell(item['qty'].toString()),
                         ],
@@ -890,7 +921,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                               icon: const Icon(Icons.download),
                               onPressed: () {
                                 final url =
-                                    'http://localhost/Apparell_backend/${attachment['attachment_path']}';
+                                    'http://localhost/Apparell/Apparell_backend/${attachment['attachment_path']}';
                                 final fileName = attachment['file_name'] ??
                                     'downloaded_file';
                                 downloadAndSaveFile(url, fileName);
@@ -949,7 +980,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       child: Text(
         value,
         textAlign: TextAlign.center,
-        style: GoogleFonts.poppins(fontWeight: bold ? FontWeight.bold : FontWeight.normal),
+        style: GoogleFonts.poppins(
+            fontWeight: bold ? FontWeight.bold : FontWeight.normal),
       ),
     );
   }

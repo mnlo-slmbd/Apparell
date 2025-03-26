@@ -35,7 +35,10 @@ class _JobOrderRequestState extends State<JobOrderRequest> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => OrderDetailsPage(orderId: orderId, data: null,),
+        builder: (context) => OrderDetailsPage(
+          orderId: orderId,
+          data: null,
+        ),
       ),
     );
   }
@@ -271,7 +274,8 @@ class OrderDetailsPage extends StatefulWidget {
 
   const OrderDetailsPage({
     super.key,
-    this.orderId, required data,
+    this.orderId,
+    required data,
   });
 
   @override
@@ -288,7 +292,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   }
 
   Future<void> _fetchOrderDetails(String? orderId) async {
-    const String apiUrl = "http://localhost/Apparell_backend/get_order.php";
+    const String apiUrl =
+        "http://localhost/apparell/Apparell_backend/get_order.php";
     try {
       final String url = orderId != null
           ? "$apiUrl?orderId=${orderId.replaceFirst(RegExp(r'^0+'), '')}"

@@ -27,7 +27,7 @@ class _TailoringState extends State<Tailoring> {
   // Fetch orders where printing_status is completed
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_tailoring_orders.php";
+        "http://localhost/apparell/Apparell_backend/get_tailoring_orders.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -57,7 +57,7 @@ class _TailoringState extends State<Tailoring> {
   // Update the tailoring status in the backend
   Future<void> _updateTailoringStatus(String orderId, String status) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_tailoring_status.php";
+        "http://localhost/apparell/Apparell_backend/update_tailoring_status.php";
 
     try {
       final response = await http.post(
@@ -268,11 +268,15 @@ class _TailoringState extends State<Tailoring> {
       child: Row(
         children: [
           _buildCell(order['team_name'] ?? 'N/A', 2),
-          _buildStyledCell(order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold, isOrderId: true), // Light blue Order ID
+          _buildStyledCell(
+              order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold,
+              isOrderId: true), // Light blue Order ID
           _buildStyledCell(
             order['order_type'] ?? 'N/A',
             2,
-            isSpecialOrder ? Colors.red : Colors.black, // Red for special orders, black for regular
+            isSpecialOrder
+                ? Colors.red
+                : Colors.black, // Red for special orders, black for regular
             FontWeight.normal,
           ),
           _buildCell(order['total_quantity']?.toString() ?? '0', 2),
@@ -286,11 +290,15 @@ class _TailoringState extends State<Tailoring> {
     );
   }
 
-  Widget _buildStyledCell(String value, int flex, Color color, FontWeight fontWeight, {bool isOrderId = false}) {
+  Widget _buildStyledCell(
+      String value, int flex, Color color, FontWeight fontWeight,
+      {bool isOrderId = false}) {
     return Expanded(
       flex: flex,
       child: MouseRegion(
-        cursor: isOrderId ? SystemMouseCursors.click : SystemMouseCursors.basic, // Clickable cursor for Order ID
+        cursor: isOrderId
+            ? SystemMouseCursors.click
+            : SystemMouseCursors.basic, // Clickable cursor for Order ID
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

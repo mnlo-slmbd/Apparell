@@ -79,8 +79,8 @@ class _StoreSalesBodyState extends State<StoreSalesBody> {
     });
 
     final String apiUrl = _isDailyView
-        ? "http://localhost/Apparell_backend/fetch_daily_sales.php?date=${DateFormat('yyyy-MM-dd').format(_selectedDate)}&store=${Uri.encodeComponent(widget.storeName)}"
-        : "http://localhost/Apparell_backend/fetch_monthly_sales.php?month=${DateFormat('yyyy-MM').format(_selectedMonth)}&store=${Uri.encodeComponent(widget.storeName)}";
+        ? "http://localhost/apparell/Apparell_backend/fetch_daily_sales.php?date=${DateFormat('yyyy-MM-dd').format(_selectedDate)}&store=${Uri.encodeComponent(widget.storeName)}"
+        : "http://localhost/apparell/Apparell_backend/fetch_monthly_sales.php?month=${DateFormat('yyyy-MM').format(_selectedMonth)}&store=${Uri.encodeComponent(widget.storeName)}";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));

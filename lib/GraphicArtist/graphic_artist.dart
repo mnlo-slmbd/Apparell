@@ -42,7 +42,7 @@ class _GraphicArtistTaskState extends State<GraphicArtistTask> {
 
   Future<void> fetchAssignedTasks() async {
     final String apiUrl =
-        "http://localhost/Apparell_backend/get_assigned_tasks.php?assignees=${widget.assignee}";
+        "http://localhost/apparell/Apparell_backend/get_assigned_tasks.php?assignees=${widget.assignee}";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -85,7 +85,7 @@ class _GraphicArtistTaskState extends State<GraphicArtistTask> {
 
   Future<void> fetchOrderDetailsAndNavigate(String orderID) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_order_details.php";
+        "http://localhost/apparell/Apparell_backend/get_order_details.php";
 
     try {
       final response = await http.get(Uri.parse('$apiUrl?order_id=$orderID'));
@@ -388,7 +388,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Future<void> _deleteAttachment(String attachmentId) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/delete_attachment.php";
+        "http://localhost/apparell/Apparell_backend/delete_attachment.php";
 
     try {
       final response = await http.post(
@@ -448,7 +448,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
   Future<void> fetchAttachments(String orderId) async {
     // Change const to final
     final String apiUrl =
-        "http://localhost/Apparell_backend/fetch_attachments.php?order_id=$orderId";
+        "http://localhost/apparell/Apparell_backend/fetch_attachments.php?order_id=$orderId";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -477,7 +477,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
 
   Future<void> sendToTestPrint(BuildContext context, String? orderId) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/send_to_testprint.php";
+        "http://localhost/apparell/Apparell_backend/send_to_testprint.php";
 
     if (orderId == null || orderId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -526,7 +526,8 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
       try {
         final request = http.MultipartRequest(
           'POST',
-          Uri.parse('http://localhost/Apparell_backend/upload_attachment.php'),
+          Uri.parse(
+              'http://localhost/apparell/Apparell_backend/upload_attachment.php'),
         );
         request.fields['order_id'] = orderId;
         if (kIsWeb) {
@@ -687,7 +688,7 @@ class _OrderDetailsPageState extends State<OrderDetailsPage> {
                                     color: Colors.blue),
                                 onPressed: () {
                                   final url =
-                                      'http://localhost/Apparell_backend/${attachment['attachment_path']}';
+                                      'http://localhost/apparell/Apparell_backend/${attachment['attachment_path']}';
                                   final fileName = attachment['file_name'] ??
                                       'downloaded_file';
                                   downloadAndSaveFile(url, fileName);

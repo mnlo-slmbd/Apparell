@@ -27,7 +27,7 @@ class _QualityCheckState extends State<QualityCheck> {
   // Fetch orders from the backend
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_qualitycheck_orders.php";
+        "http://localhost/apparell/Apparell_backend/get_qualitycheck_orders.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -57,7 +57,7 @@ class _QualityCheckState extends State<QualityCheck> {
   // Update quality check status in the backend
   Future<void> _updateQualityCheckStatus(String orderId, String status) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_qualitycheck_status.php";
+        "http://localhost/apparell/Apparell_backend/update_qualitycheck_status.php";
 
     try {
       final response = await http.post(
@@ -255,41 +255,49 @@ class _QualityCheckState extends State<QualityCheck> {
     );
   }
 
-Widget _buildTableRow(Map<String, dynamic> order) {
-  final bool isSpecialOrder = ["Rush Order", "Big Order", "Philgeps Order"]
-      .contains(order['order_type']);
+  Widget _buildTableRow(Map<String, dynamic> order) {
+    final bool isSpecialOrder = ["Rush Order", "Big Order", "Philgeps Order"]
+        .contains(order['order_type']);
 
-  return Container(
-    padding: const EdgeInsets.symmetric(vertical: 12.0),
-    decoration: const BoxDecoration(
-      border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
-    ),
-    child: Row(
-      children: [
-        _buildCell(order['team_name'] ?? 'N/A', 2),
-        _buildStyledCell(order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold, isOrderId: true), // Light blue Order ID
-        _buildStyledCell(
-          order['order_type'] ?? 'N/A',
-          2,
-          isSpecialOrder ? Colors.red : Colors.black, // Red for special orders, black for regular
-          FontWeight.normal,
-        ),
-        _buildCell(order['total_quantity']?.toString() ?? '0', 2),
-        _buildCell(order['items'] ?? 'N/A', 2),
-        _buildCell(order['store'] ?? 'N/A', 2),
-        _buildCell(order['date_order'] ?? 'N/A', 2),
-        _buildCell(order['delivery_date'] ?? 'N/A', 2),
-        _buildStatusDropdown(order['qc_status'] ?? 'pending', order),
-      ],
-    ),
-  );
-}
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
+      ),
+      child: Row(
+        children: [
+          _buildCell(order['team_name'] ?? 'N/A', 2),
+          _buildStyledCell(
+              order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold,
+              isOrderId: true), // Light blue Order ID
+          _buildStyledCell(
+            order['order_type'] ?? 'N/A',
+            2,
+            isSpecialOrder
+                ? Colors.red
+                : Colors.black, // Red for special orders, black for regular
+            FontWeight.normal,
+          ),
+          _buildCell(order['total_quantity']?.toString() ?? '0', 2),
+          _buildCell(order['items'] ?? 'N/A', 2),
+          _buildCell(order['store'] ?? 'N/A', 2),
+          _buildCell(order['date_order'] ?? 'N/A', 2),
+          _buildCell(order['delivery_date'] ?? 'N/A', 2),
+          _buildStatusDropdown(order['qc_status'] ?? 'pending', order),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildStyledCell(String value, int flex, Color color, FontWeight fontWeight, {bool isOrderId = false}) {
+  Widget _buildStyledCell(
+      String value, int flex, Color color, FontWeight fontWeight,
+      {bool isOrderId = false}) {
     return Expanded(
       flex: flex,
       child: MouseRegion(
-        cursor: isOrderId ? SystemMouseCursors.click : SystemMouseCursors.basic, // Clickable cursor for Order ID
+        cursor: isOrderId
+            ? SystemMouseCursors.click
+            : SystemMouseCursors.basic, // Clickable cursor for Order ID
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

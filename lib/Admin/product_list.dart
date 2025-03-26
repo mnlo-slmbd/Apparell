@@ -23,7 +23,8 @@ class _ProductListState extends State<ProductList> {
 
   // Fetch products from the database
   Future<void> _fetchProducts() async {
-    final url = Uri.parse('http://localhost/Apparell_backend/get_products.php');
+    final url = Uri.parse(
+        'http://localhost/apparell/Apparell_backend/get_products.php');
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
@@ -40,7 +41,8 @@ class _ProductListState extends State<ProductList> {
 
   // Add a new product to the database
   Future<void> _addProductToDatabase(String name, String price) async {
-    final url = Uri.parse('http://localhost/Apparell_backend/add_product.php');
+    final url =
+        Uri.parse('http://localhost/apparell/Apparell_backend/add_product.php');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -75,8 +77,8 @@ class _ProductListState extends State<ProductList> {
 
   // Delete a product from the database
   Future<void> _deleteProductFromDatabase(int id) async {
-    final url =
-        Uri.parse('http://localhost/Apparell_backend/delete_product.php');
+    final url = Uri.parse(
+        'http://localhost/apparell/Apparell_backend/delete_product.php');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -181,8 +183,8 @@ class _ProductListState extends State<ProductList> {
   // Edit a product in the database
   Future<void> _editProductInDatabase(
       int id, String name, String price, String status) async {
-    final url =
-        Uri.parse('http://localhost/Apparell_backend/update_product.php');
+    final url = Uri.parse(
+        'http://localhost/apparell/Apparell_backend/update_product.php');
     final response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -367,7 +369,8 @@ class _ProductListState extends State<ProductList> {
             const SizedBox(height: 10),
             // Table Header with Proper Column Widths & Left Alignment
             Container(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
               decoration: BoxDecoration(
                 color: Colors.blue.shade100,
                 borderRadius: BorderRadius.circular(8.0),
@@ -428,111 +431,126 @@ class _ProductListState extends State<ProductList> {
               ),
             ),
             const SizedBox(height: 10),
-          Expanded(
-            child: _products.isEmpty
-                ? const Center(child: Text('No products found'))
-                : ListView.builder(
-                    itemCount: _products.length,
-                    itemBuilder: (context, index) {
-                      final product = _products[index];
-                      return Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        elevation: 3,
-                        margin: const EdgeInsets.symmetric(vertical: 5),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3, // Match header width
-                                child: Text(
-                                  product['name'],
-                                  style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal,
+            Expanded(
+              child: _products.isEmpty
+                  ? const Center(child: Text('No products found'))
+                  : ListView.builder(
+                      itemCount: _products.length,
+                      itemBuilder: (context, index) {
+                        final product = _products[index];
+                        return Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          elevation: 3,
+                          margin: const EdgeInsets.symmetric(vertical: 5),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 10),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 3, // Match header width
+                                  child: Text(
+                                    product['name'],
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Text(
-                                  product['price'],
-                                  style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal,
+                                Expanded(
+                                  flex: 2,
+                                  child: Text(
+                                    product['price'],
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                                  decoration: BoxDecoration(
-                                    color: product['status'] == 'Published'
-                                        ? Colors.green.shade100
-                                        : Colors.red.shade100,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        product['status'] == 'Published' ? Icons.check_circle : Icons.warning,
-                                        color: product['status'] == 'Published' ? Colors.green : Colors.red,
-                                        size: 14,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        product['status'].toUpperCase(),
-                                        style: TextStyle(
-                                          color: product['status'] == 'Published' ? Colors.green : Colors.red,
-                                          fontWeight: FontWeight.normal,
-                                          fontSize: 13,
+                                Expanded(
+                                  flex: 2,
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, vertical: 4.0),
+                                    decoration: BoxDecoration(
+                                      color: product['status'] == 'Published'
+                                          ? Colors.green.shade100
+                                          : Colors.red.shade100,
+                                      borderRadius: BorderRadius.circular(8.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          product['status'] == 'Published'
+                                              ? Icons.check_circle
+                                              : Icons.warning,
+                                          color:
+                                              product['status'] == 'Published'
+                                                  ? Colors.green
+                                                  : Colors.red,
+                                          size: 14,
                                         ),
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          product['status'].toUpperCase(),
+                                          style: TextStyle(
+                                            color:
+                                                product['status'] == 'Published'
+                                                    ? Colors.green
+                                                    : Colors.red,
+                                            fontWeight: FontWeight.normal,
+                                            fontSize: 13,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Row(
+                                    children: [
+                                      IconButton(
+                                        icon: const Icon(Icons.edit,
+                                            color: Colors.blue, size: 20),
+                                        onPressed: () {
+                                          _editProduct(product);
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: const Icon(Icons.delete,
+                                            color: Colors.red, size: 20),
+                                        onPressed: () {
+                                          _confirmDeleteProduct(int.parse(
+                                              product['id'].toString()));
+                                        },
                                       ),
                                     ],
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 2,
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit, color: Colors.blue, size: 20),
-                                      onPressed: () {
-                                        _editProduct(product);
-                                      },
+                                Expanded(
+                                  flex: 3, // More space for details
+                                  child: Text(
+                                    product['details'] ?? '',
+                                    textAlign:
+                                        TextAlign.left, // Left align text
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.normal,
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete, color: Colors.red, size: 20),
-                                      onPressed: () {
-                                        _confirmDeleteProduct(int.parse(product['id'].toString()));
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 3, // More space for details
-                                child: Text(
-                                  product['details'] ?? '',
-                                  textAlign: TextAlign.left, // Left align text
-                                  style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  ),
-          ),
+                        );
+                      },
+                    ),
+            ),
           ],
         ),
       ),

@@ -44,7 +44,8 @@ class _InventoryPageState extends State<InventoryPage> {
   Future<void> _fetchProducts({String? fromDate, String? toDate}) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost/Apparell_backend/get_products_inventory.php'),
+        Uri.parse(
+            'http://localhost/apparell/Apparell_backend/get_products_inventory.php'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'from_date': fromDate, 'to_date': toDate}),
       );
@@ -80,7 +81,7 @@ class _InventoryPageState extends State<InventoryPage> {
   void _addProductToDatabase(Map<String, dynamic> newProduct) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost/Apparell_backend/add_product.php'),
+        Uri.parse('http://localhost/apparell/Apparell_backend/add_product.php'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode(newProduct),
       );
@@ -270,7 +271,8 @@ class _InventoryPageState extends State<InventoryPage> {
                   onPressed: _generateReport, // ✅ Call the function
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -490,54 +492,57 @@ class _InventoryPageState extends State<InventoryPage> {
       ),
     );
   }
-void _generateReport() async {
-  if (fromDate == null || toDate == null) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Please select a date range first!')),
-    );
-    return;
-  }
 
-  try {
-    final response = await http.post(
-      Uri.parse('http://localhost/Apparell_backend/generate_report.php'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'from_date': DateFormat('yyyy-MM-dd').format(fromDate!),
-        'to_date': DateFormat('yyyy-MM-dd').format(toDate!),
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final pdfBytes = response.bodyBytes;
-
-      // Save the PDF
-      final directory = await getApplicationDocumentsDirectory();
-      final filePath = '${directory.path}/inventory_report.pdf';
-      final file = File(filePath);
-      await file.writeAsBytes(pdfBytes);
-
-      // Open the PDF
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => PDFView(filePath: filePath),
-        ),
+  void _generateReport() async {
+    if (fromDate == null || toDate == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a date range first!')),
       );
-    } else {
-      throw Exception('Failed to generate report.');
+      return;
     }
-  } catch (error) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Error generating report: $error')),
-    );
+
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://localhost/apparell/Apparell_backend/generate_report.php'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'from_date': DateFormat('yyyy-MM-dd').format(fromDate!),
+          'to_date': DateFormat('yyyy-MM-dd').format(toDate!),
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final pdfBytes = response.bodyBytes;
+
+        // Save the PDF
+        final directory = await getApplicationDocumentsDirectory();
+        final filePath = '${directory.path}/inventory_report.pdf';
+        final file = File(filePath);
+        await file.writeAsBytes(pdfBytes);
+
+        // Open the PDF
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PDFView(filePath: filePath),
+          ),
+        );
+      } else {
+        throw Exception('Failed to generate report.');
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error generating report: $error')),
+      );
+    }
   }
-}
 
   void _deleteProduct(String productId) async {
     try {
       final response = await http.post(
-        Uri.parse('http://localhost/Apparell_backend/delete_product.php'),
+        Uri.parse(
+            'http://localhost/apparell/Apparell_backend/delete_product.php'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'id': productId}),
       );
@@ -587,7 +592,8 @@ void _generateReport() async {
           child: TextField(
             controller: controller,
             style: GoogleFonts.poppins(fontSize: 12),
-            textAlignVertical: TextAlignVertical.center, // Ensures text is centered
+            textAlignVertical:
+                TextAlignVertical.center, // Ensures text is centered
             textAlign: TextAlign.left, // Aligns text to the left
             decoration: const InputDecoration(
               border: InputBorder.none,
@@ -596,7 +602,8 @@ void _generateReport() async {
                 minWidth: 30,
                 minHeight: 30,
               ),
-              contentPadding: EdgeInsets.only(left: 10, bottom: 8), // Aligns with label
+              contentPadding:
+                  EdgeInsets.only(left: 10, bottom: 8), // Aligns with label
             ),
             readOnly: true,
             onTap: () async {
@@ -617,4 +624,3 @@ void _generateReport() async {
     );
   }
 }
-

@@ -27,7 +27,7 @@ class _PrintingState extends State<Printing> {
   // Fetch orders from the backend
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_printing_orders.php";
+        "http://localhost/apparell/Apparell_backend/get_printing_orders.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -57,7 +57,7 @@ class _PrintingState extends State<Printing> {
   // Update the printing status in the backend
   Future<void> _updatePrintingStatus(String orderId, String status) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_printing_status.php";
+        "http://localhost/apparell/Apparell_backend/update_printing_status.php";
 
     try {
       final response = await http.post(
@@ -269,11 +269,15 @@ class _PrintingState extends State<Printing> {
       child: Row(
         children: [
           _buildCell(order['team_name'] ?? 'N/A', 2),
-          _buildStyledCell(order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold, isOrderId: true), // Light blue Order ID
+          _buildStyledCell(
+              order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold,
+              isOrderId: true), // Light blue Order ID
           _buildStyledCell(
             order['order_type'] ?? 'N/A',
             2,
-            isSpecialOrder ? Colors.red : Colors.black, // Red for special orders, black for regular
+            isSpecialOrder
+                ? Colors.red
+                : Colors.black, // Red for special orders, black for regular
             FontWeight.normal,
           ),
           _buildCell(order['total_quantity']?.toString() ?? '0', 2),
@@ -287,7 +291,9 @@ class _PrintingState extends State<Printing> {
     );
   }
 
-  Widget _buildStyledCell(String value, int flex, Color color, FontWeight fontWeight, {bool isOrderId = false}) {
+  Widget _buildStyledCell(
+      String value, int flex, Color color, FontWeight fontWeight,
+      {bool isOrderId = false}) {
     return Expanded(
       flex: flex,
       child: Container(

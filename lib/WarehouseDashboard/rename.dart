@@ -48,7 +48,7 @@ class _RenameLayoutState extends State<WarehouseRename> {
   // Fetch orders from the database
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_rename_orders.php";
+        "http://localhost/apparell/Apparell_backend/get_rename_orders.php";
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -84,7 +84,7 @@ class _RenameLayoutState extends State<WarehouseRename> {
     }
 
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_rename_status.php";
+        "http://localhost/apparell/Apparell_backend/update_rename_status.php";
 
     try {
       final response = await http.post(
@@ -177,7 +177,8 @@ class _RenameLayoutState extends State<WarehouseRename> {
                     borderRadius: BorderRadius.circular(8.0),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color.fromARGB(255, 151, 187, 249).withOpacity(0.3),
+                        color: const Color.fromARGB(255, 151, 187, 249)
+                            .withOpacity(0.3),
                         blurRadius: 6,
                         offset: const Offset(0, 3),
                       ),
@@ -292,11 +293,15 @@ class _RenameLayoutState extends State<WarehouseRename> {
       child: Row(
         children: [
           _buildCell(order['team_name'] ?? 'N/A', 2),
-          _buildClickableOrderCell(order['order_id'] ?? 'N/A', order), // Clickable Order ID
+          _buildClickableOrderCell(
+              order['order_id'] ?? 'N/A', order), // Clickable Order ID
           _buildCell(
             order['order_type'] ?? 'N/A',
             2,
-            textStyle: TextStyle(color: isRushOrder ? Colors.red : Colors.black), // Rush Order in Red
+            textStyle: TextStyle(
+                color: isRushOrder
+                    ? Colors.red
+                    : Colors.black), // Rush Order in Red
           ),
           _buildCell(order['total_quantity']?.toString() ?? '0', 2),
           _buildCell(order['items'] ?? 'N/A', 2),
@@ -319,34 +324,34 @@ class _RenameLayoutState extends State<WarehouseRename> {
     );
   }
 
-Widget _buildClickableOrderCell(String orderId, Map<String, dynamic> order) {
-  return Expanded(
-    flex: 2,
-    child: GestureDetector(
-      onTap: () {
-        _navigateToOrderDetails(order['order_id'], order);
-      },
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          alignment: Alignment.center,
-          child: Text(
-            orderId,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue,
+  Widget _buildClickableOrderCell(String orderId, Map<String, dynamic> order) {
+    return Expanded(
+      flex: 2,
+      child: GestureDetector(
+        onTap: () {
+          _navigateToOrderDetails(order['order_id'], order);
+        },
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            alignment: Alignment.center,
+            child: Text(
+              orderId,
+              style: GoogleFonts.poppins(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildCell(String value, int flex, {TextStyle? textStyle}) {
     return Expanded(
@@ -356,10 +361,11 @@ Widget _buildClickableOrderCell(String orderId, Map<String, dynamic> order) {
         alignment: Alignment.center,
         child: Text(
           value,
-          style: textStyle ?? const TextStyle(
-            fontFamily: 'Poppins',
-            fontSize: 13,
-          ),
+          style: textStyle ??
+              const TextStyle(
+                fontFamily: 'Poppins',
+                fontSize: 13,
+              ),
           textAlign: TextAlign.center,
         ),
       ),
@@ -425,5 +431,3 @@ Widget _buildClickableOrderCell(String orderId, Map<String, dynamic> order) {
     );
   }
 }
-
-

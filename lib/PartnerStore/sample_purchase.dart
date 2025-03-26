@@ -96,8 +96,8 @@ class _PurchaseOrderFormState extends State<PurchaseOrderForms> {
   }
 
   Future<void> fetchProvinces() async {
-    final response = await http.get(
-        Uri.parse('http://localhost/Apparell_backend/fetch_provinces.php'));
+    final response = await http.get(Uri.parse(
+        'http://localhost/apparell/Apparell_backend/fetch_provinces.php'));
     if (response.statusCode == 200) {
       final List data = json.decode(response.body);
       setState(() {
@@ -109,7 +109,7 @@ class _PurchaseOrderFormState extends State<PurchaseOrderForms> {
 
   Future<void> fetchCities(String provinceId) async {
     final response = await http.get(Uri.parse(
-        'http://localhost/Apparell_backend/fetch_cities.php?province_id=$provinceId'));
+        'http://localhost/apparell/Apparell_backend/fetch_cities.php?province_id=$provinceId'));
     if (response.statusCode == 200) {
       final List data = json.decode(response.body);
       setState(() {
@@ -122,7 +122,7 @@ class _PurchaseOrderFormState extends State<PurchaseOrderForms> {
     String storeCode = getStoreCode(widget.storeName);
 
     final response = await http.get(Uri.parse(
-        'http://localhost/Apparell_backend/check_order_id.php?storeCode=$storeCode'));
+        'http://localhost/apparell/Apparell_backend/check_order_id.php?storeCode=$storeCode'));
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
@@ -157,7 +157,8 @@ class _PurchaseOrderFormState extends State<PurchaseOrderForms> {
   }
 
   Future<bool> saveOrderToDatabase() async {
-    final url = Uri.parse('http://localhost/Apparell_backend/save_order.php');
+    final url =
+        Uri.parse('http://localhost/apparell/Apparell_backend/save_order.php');
 
     String formattedDateOrder = '';
     try {
@@ -236,7 +237,8 @@ class _PurchaseOrderFormState extends State<PurchaseOrderForms> {
   }
 
   Future<void> fetchProducts() async {
-    const String url = 'http://localhost/Apparell_backend/fetch_product.php';
+    const String url =
+        'http://localhost/apparell/Apparell_backend/fetch_product.php';
     try {
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {

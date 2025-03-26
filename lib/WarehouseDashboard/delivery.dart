@@ -28,7 +28,7 @@ class _DeliveryState extends State<Delivery> {
   // Fetch orders where quality check is 'completed'
   Future<void> _fetchOrders() async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/get_delivery_orders.php"; // Replace with your API endpoint
+        "http://localhost/apparell/Apparell_backend/get_delivery_orders.php"; // Replace with your API endpoint
 
     try {
       final response = await http.get(Uri.parse(apiUrl));
@@ -58,7 +58,7 @@ class _DeliveryState extends State<Delivery> {
   // Update the delivery status
   Future<void> _updateDeliveryStatus(String orderId, String status) async {
     const String apiUrl =
-        "http://localhost/Apparell_backend/update_delivery_status.php"; // Replace with your API endpoint
+        "http://localhost/apparell/Apparell_backend/update_delivery_status.php"; // Replace with your API endpoint
 
     try {
       final response = await http.post(
@@ -256,35 +256,39 @@ class _DeliveryState extends State<Delivery> {
     );
   }
 
-Widget _buildTableRow(Map<String, dynamic> order) {
-  final bool isSpecialOrder = ["Rush Order", "Big Order", "Philgeps Order"]
-      .contains(order['order_type']);
+  Widget _buildTableRow(Map<String, dynamic> order) {
+    final bool isSpecialOrder = ["Rush Order", "Big Order", "Philgeps Order"]
+        .contains(order['order_type']);
 
-  return Container(
-    padding: const EdgeInsets.symmetric(vertical: 12.0),
-    decoration: const BoxDecoration(
-      border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
-    ),
-    child: Row(
-      children: [
-        _buildCell(order['team_name'] ?? 'N/A', 2),
-        _buildStyledCell(order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold, isOrderId: true), // Light blue Order ID
-        _buildStyledCell(
-          order['order_type'] ?? 'N/A',
-          2,
-          isSpecialOrder ? Colors.red : Colors.black, // Red for special orders, black for regular
-          FontWeight.normal,
-        ),
-        _buildCell(order['total_quantity']?.toString() ?? '0', 2),
-        _buildCell(order['items'] ?? 'N/A', 2),
-        _buildCell(order['store'] ?? 'N/A', 2),
-        _buildCell(order['date_order'] ?? 'N/A', 2),
-        _buildCell(order['delivery_date'] ?? 'N/A', 2),
-        _buildStatusDropdown(order['delivery_status'] ?? 'pending', order),
-      ],
-    ),
-  );
-}
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Colors.grey, width: 0.5)),
+      ),
+      child: Row(
+        children: [
+          _buildCell(order['team_name'] ?? 'N/A', 2),
+          _buildStyledCell(
+              order['order_id'] ?? 'N/A', 2, Colors.lightBlue, FontWeight.bold,
+              isOrderId: true), // Light blue Order ID
+          _buildStyledCell(
+            order['order_type'] ?? 'N/A',
+            2,
+            isSpecialOrder
+                ? Colors.red
+                : Colors.black, // Red for special orders, black for regular
+            FontWeight.normal,
+          ),
+          _buildCell(order['total_quantity']?.toString() ?? '0', 2),
+          _buildCell(order['items'] ?? 'N/A', 2),
+          _buildCell(order['store'] ?? 'N/A', 2),
+          _buildCell(order['date_order'] ?? 'N/A', 2),
+          _buildCell(order['delivery_date'] ?? 'N/A', 2),
+          _buildStatusDropdown(order['delivery_status'] ?? 'pending', order),
+        ],
+      ),
+    );
+  }
 
   Widget _buildCell(String value, int flex) {
     return Expanded(
@@ -304,11 +308,15 @@ Widget _buildTableRow(Map<String, dynamic> order) {
     );
   }
 
-  Widget _buildStyledCell(String value, int flex, Color color, FontWeight fontWeight, {bool isOrderId = false}) {
+  Widget _buildStyledCell(
+      String value, int flex, Color color, FontWeight fontWeight,
+      {bool isOrderId = false}) {
     return Expanded(
       flex: flex,
       child: MouseRegion(
-        cursor: isOrderId ? SystemMouseCursors.click : SystemMouseCursors.basic, // Clickable cursor for Order ID
+        cursor: isOrderId
+            ? SystemMouseCursors.click
+            : SystemMouseCursors.basic, // Clickable cursor for Order ID
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           padding: const EdgeInsets.symmetric(horizontal: 8.0),

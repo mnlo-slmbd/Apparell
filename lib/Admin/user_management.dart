@@ -26,7 +26,8 @@ class _UserManagementState extends State<UserManagement> {
 
   Future<void> _fetchUsers() async {
     try {
-      final url = Uri.parse('http://localhost/Apparell_backend/get_users.php');
+      final url =
+          Uri.parse('http://localhost/apparell/Apparell_backend/get_users.php');
       final response = await http.get(url);
 
       if (response.statusCode == 200) {
@@ -51,8 +52,8 @@ class _UserManagementState extends State<UserManagement> {
 
   Future<void> _deleteUser(User user) async {
     try {
-      final url =
-          Uri.parse('http://localhost/Apparell_backend/delete_user.php');
+      final url = Uri.parse(
+          'http://localhost/apparell/Apparell_backend/delete_user.php');
       final response = await http.post(
         url,
         headers: {"Content-Type": "application/json"},
